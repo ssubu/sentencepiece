@@ -189,7 +189,7 @@ impl SentencePieceProcessor {
 
     /// Tokenizer a sentence.
     pub fn encode(&self, sentence: &str) -> Result<Vec<PieceWithId>, SentencePieceError> {
-        let c_sentence = CString::new(sentence).unwrap();
+        let c_sentence = CString::new(sentence).map_err(|_| SentencePieceError::EncodeError)?;
 
         let mut len = 0u64;
         let c_proto =
